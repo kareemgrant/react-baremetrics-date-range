@@ -11,9 +11,7 @@ import CalendarDay from './CalendarDay'
 
 function CalendarGrid (props) {
   const intervalStartDate = startOfWeek(startOfMonth(props.currentDate))
-  console.log(intervalStartDate)
   const intervalEndDate = endOfWeek(endOfMonth(props.currentDate))
-  console.log(intervalEndDate)
 
   const days = eachDayOfInterval({
     start: intervalStartDate,
@@ -24,6 +22,7 @@ function CalendarGrid (props) {
         date={date}
         key={lightFormat(date, 'yyyy-MM-dd')}
         currentDate={props.currentDate}
+        {...props}
       />
     )
   })

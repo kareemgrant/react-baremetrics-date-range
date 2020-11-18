@@ -2,7 +2,7 @@ import React from 'react'
 
 function CalendarPresets (props) {
   return (
-    <div className='border-r w-104'>
+    <div className='border-r w-100'>
       <button className='flex w-full items-center h-11 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'>
         <div className='text-medium font-medium'>
           Last 30 days

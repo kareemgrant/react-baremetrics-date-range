@@ -7,15 +7,25 @@ import {
   toDate,
   parse,
   add,
+  subDays,
   sub,
+  startOfDay,
   endOfMonth,
   startOfMonth,
   endOfWeek,
-  startOfWeek
+  startOfWeek,
+  isSameMonth
 } from 'date-fns'
 
 function App () {
-  const [currentDate, setCurrentDate] = useState(toDate(Date.now()))
+  const [firstAnchorDate, setFirstAnchorDate] = useState(
+    subDays(startOfDay(toDate(Date.now())), 7)
+  )
+  const [secondAnchorDate, setSecondAnchorDate] = useState(startOfDay(toDate(Date.now())))
+  const [currentDate, setCurrentDate] = useState(firstAnchorDate)
+  const [isFirstSelection, setIsFirstSelection] = useState(true)
+  const [inHover, setHover] = useState(false)
+  const [anchorDateCandidate, setAnchorDateCandidate] = useState(null)
 
   const nextMonth = () => {
     setCurrentDate((prevDate) => {
@@ -47,6 +57,52 @@ function App () {
         years: 1
       })
     })
+  }
+
+  const setDate = (date) => {
+    setCurrentDate(date)
+  }
+
+  const onFirstDateSelection = (date) => {
+    console.log('new startDate selected')
+    console.log(date)
+
+    setFirstAnchorDate(date)
+    // if (date > endDate) {
+    //   setStartDate(endDate)
+    //   setEndDate(date)
+    // } else {
+    //   setStartDate(date)
+    // }
+
+    setIsFirstSelection(false)
+    setAnchorDateCandidate(secondAnchorDate)
+
+    if (!isSameMonth(secondAnchorDate, currentDate)) {
+      setCurrentDate(secondAnchorDate)
+    }
+  }
+
+  const onSecondDateSelection = (date) => {
+    console.log('new endDate selected')
+    if (date < firstAnchorDate) {
+      setSecondAnchorDate(firstAnchorDate)
+      setFirstAnchorDate(date)
+    } else {
+      setSecondAnchorDate(date)
+    }
+
+    setIsFirstSelection(true)
+  }
+
+  const onHoverEnter = (date) => {
+    console.log(`entered hover for: ${date}`)
+    setAnchorDateCandidate(date)
+  }
+
+  const onHoverLeave = (date) => {
+    console.log(`exit hover for: ${date}`)
+    return true
   }
 
   return (
@@ -95,16 +151,27 @@ function App () {
 
           <CalendarGrid
             currentDate={currentDate}
+            startDate={firstAnchorDate}
+            endDate={secondAnchorDate}
+            anchorDateCandidate={anchorDateCandidate}
+            handleSetDate={setDate}
+            handleStartDateSelection={onFirstDateSelection}
+            handleEndDateSelection={onSecondDateSelection}
+            isFirstSelection={isFirstSelection}
+            handleHoverEnter={onHoverEnter}
+            handleHoverLeave={onHoverLeave}
           />
         </div>
       </div>
 
       <pre className='mt-8'>{JSON.stringify({
         currentDate,
-        startOfMonth: startOfMonth(currentDate),
-        startOfWeek: startOfWeek(startOfMonth(currentDate)),
-        endOfMonth: endOfMonth(currentDate),
-        endOfWeek: endOfWeek(endOfMonth(currentDate))
+        firstAnchorDate,
+        secondAnchorDate
+        // startOfMonth: startOfMonth(currentDate),
+        // endOfMonth: endOfMonth(currentDate),
+        // startOfMonthView: startOfWeek(startOfMonth(currentDate)),
+        // endOfMonthView: endOfWeek(endOfMonth(currentDate))
 
       }, null, 2)}</pre>
 
