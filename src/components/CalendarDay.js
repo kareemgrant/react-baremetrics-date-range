@@ -7,12 +7,21 @@ import {
   isWithinInterval
 } from 'date-fns'
 
-const buildDayClass = (date, currentDate, startDate, endDate, isFirstSelection, anchorDateCandidate) => {
-  const baseClass = 'h-10 flex-1 flex justify-center items-center rounded box-border focus:outline-none border border-transparent font-semibold '
+const buildDayClass = (
+  date,
+  currentDate,
+  startDate,
+  endDate,
+  isFirstSelection,
+  anchorDateCandidate
+) => {
+  const baseClass = 'h-9 flex-1 flex justify-center items-center rounded box-border focus:outline-none border border-transparent font-semibold '
   const disabledDayClass = ' opacity-25 cursor-not-allowed text-gray-600 '
   const sameMonthClass = ' text-gray-700 hover:bg-gray-200 hover:text-indigo-500 '
   const differentMonthClass = ' text-gray-500 hover:bg-gray-200 hover:text-indigo-500 '
-  const secondSelectionHover = ' text-white hover:bg-indigo-500 '
+  const leftAnchorClass = ' rounded-l-lg bg-indigo-500 text-white '
+  const rightAnchorClass = ' rounded-r-lg bg-indigo-500 text-white '
+  const insideRangeClass = ' bg-gray-200 text-indigo-600 '
 
   let dayClass = baseClass
 
@@ -38,11 +47,11 @@ const buildDayClass = (date, currentDate, startDate, endDate, isFirstSelection, 
 
     if (isWithinRange) {
       if (isSameDay(date, startDate)) {
-        dayClass = dayClass.concat(' rounded-l-lg bg-indigo-500 text-white ')
+        dayClass = dayClass.concat(leftAnchorClass)
       } else if (isSameDay(date, endDate)) {
-        dayClass = dayClass.concat(' rounded-r-lg bg-indigo-500 text-white ')
+        dayClass = dayClass.concat(rightAnchorClass)
       } else {
-        dayClass = dayClass.concat(' bg-gray-200 text-indigo-600 ')
+        dayClass = dayClass.concat(insideRangeClass)
       }
     } else {
       if (isSameMonth(currentDate, date)) {
@@ -54,7 +63,6 @@ const buildDayClass = (date, currentDate, startDate, endDate, isFirstSelection, 
   } else {
     let isWithinRange
 
-    console.log(anchorDateCandidate)
     if (startDate <= anchorDateCandidate) {
       isWithinRange = isWithinInterval(date, {
         start: startDate,
@@ -69,15 +77,15 @@ const buildDayClass = (date, currentDate, startDate, endDate, isFirstSelection, 
 
     if (isWithinRange) {
       if (isSameDay(date, startDate) && (startDate <= anchorDateCandidate)) {
-        dayClass = dayClass.concat(' rounded-l-lg bg-indigo-500 text-white ')
+        dayClass = dayClass.concat(leftAnchorClass)
       } else if (isSameDay(date, startDate) && (startDate > anchorDateCandidate)) {
-        dayClass = dayClass.concat(' rounded-r-lg bg-indigo-500 text-white ')
+        dayClass = dayClass.concat(rightAnchorClass)
       } else if (isSameDay(date, anchorDateCandidate) && (anchorDateCandidate > startDate)) {
-        dayClass = dayClass.concat(' rounded-r-lg bg-indigo-500 text-white ')
+        dayClass = dayClass.concat(rightAnchorClass)
       } else if (isSameDay(date, anchorDateCandidate) && (anchorDateCandidate < startDate)) {
-        dayClass = dayClass.concat(' rounded-l-lg bg-indigo-500 text-white ')
+        dayClass = dayClass.concat(leftAnchorClass)
       } else {
-        dayClass = dayClass.concat(' bg-gray-200 text-indigo-600 ')
+        dayClass = dayClass.concat(insideRangeClass)
       }
     } else {
       if (isSameMonth(currentDate, date)) {
