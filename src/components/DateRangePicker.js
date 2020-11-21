@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DateRangePickerBody from './DateRangePickerBody'
 import Overlay from './Overlay'
+import useKeyPress from '../hooks/useKeyPress'
 import {
   format,
   toDate,
@@ -15,6 +16,8 @@ function DateRangePicker (props) {
   )
   const [endDate, setEndDate] = useState(startOfDay(toDate(Date.now())))
   const [isFirstDateSelected, setIsFirstSelected] = useState(true)
+
+  useKeyPress('Escape', () => setShowModal(false))
 
   const onOpenModal = (dateBtn) => {
     setShowModal(true)
