@@ -2,14 +2,10 @@ import React, { useState } from 'react'
 import CalendarGrid from './CalendarGrid'
 import CalendarPresets from './CalendarPresets'
 import DateSelector from './DateSelector'
-// import OutsideClickHandler from 'react-outside-click-handler'
 
 import {
-  toDate,
   add,
-  subDays,
   sub,
-  startOfDay,
   isSameMonth
 } from 'date-fns'
 
@@ -66,8 +62,6 @@ function DateRangePickerBody (props) {
 
   const onSecondDateSelection = (date) => {
     if (date < firstAnchorDate) {
-      // setSecondAnchorDate(firstAnchorDate)
-      // setFirstAnchorDate(date)
       props.handleDateRangeSelection({
         newStartDate: date,
         newEndDate: firstAnchorDate
@@ -77,16 +71,7 @@ function DateRangePickerBody (props) {
         newStartDate: firstAnchorDate,
         newEndDate: date
       })
-      // setSecondAnchorDate(date)
     }
-
-    // console.log(date)
-    // console.log(secondAnchorDate)
-    // setIsFirstSelection(true)
-    // props.handleCloseModal({
-    //   newStartDate: firstAnchorDate,
-    //   newEndDate: secondAnchorDate
-    // })
   }
 
   const onHoverEnter = (date) => {
@@ -100,7 +85,9 @@ function DateRangePickerBody (props) {
   return (
     <div className='absolute z-50 mt-2 right-0 bg-white'>
       <div className='flex border rounded shadow'>
-        <CalendarPresets />
+        <CalendarPresets
+          handleDateRangeSelection={props.handleDateRangeSelection}
+        />
 
         <div className='w-88'>
           <DateSelector

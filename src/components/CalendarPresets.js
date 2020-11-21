@@ -4,7 +4,6 @@ import {
   subDays,
   subMonths,
   startOfMonth,
-  endOfMonth,
   lastDayOfMonth,
   toDate,
   startOfDay,
@@ -25,9 +24,19 @@ function CalendarPresets (props) {
   const startOfLastYear = startOfYear(subMonths(startOfCurrentYear, 1))
   const endOfLastYear = endOfYear(startOfLastYear)
 
+  const handlePresetSelection = ({startDate, endDate}) => {
+    props.handleDateRangeSelection({
+      newStartDate: startDate,
+      newEndDate: endDate
+    })
+  }
+
   return (
     <div className='border-r w-80'>
-      <button className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'>
+      <button
+        onClick={() => handlePresetSelection({startDate: thirtyDaysAgo, endDate: today})}
+        className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'
+      >
         <div className='flex items-baseline'>
           <div className='text-sm font-medium'>
             Last 30 days
@@ -38,7 +47,10 @@ function CalendarPresets (props) {
         </div>
       </button>
 
-      <button className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'>
+      <button
+        onClick={() => handlePresetSelection({startDate: startOfCurrentMonth, endDate: today})}
+        className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'
+      >
         <div className='flex items-baseline'>
           <div className='text-sm font-medium'>
             This month
@@ -49,7 +61,10 @@ function CalendarPresets (props) {
         </div>
       </button>
 
-      <button className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'>
+      <button
+        onClick={() => handlePresetSelection({startDate: startOfLastMonth, endDate: endOfLastMonth})}
+        className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'
+      >
         <div className='flex items-baseline'>
           <div className='text-sm font-medium'>
             Last Month
@@ -60,7 +75,10 @@ function CalendarPresets (props) {
         </div>
       </button>
 
-      <button className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'>
+      <button
+        onClick={() => handlePresetSelection({startDate: startOfLastThreeMonths, endDate: endOfLastMonth})}
+        className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'
+      >
         <div className='flex items-baseline'>
           <div className='text-sm font-medium'>
             Last 3 months
@@ -71,7 +89,10 @@ function CalendarPresets (props) {
         </div>
       </button>
 
-      <button className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'>
+      <button
+        onClick={() => handlePresetSelection({startDate: startOfLastSixMonths, endDate: endOfLastMonth})}
+        className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'
+      >
         <div className='flex items-baseline'>
           <div className='text-sm font-medium'>
             Last 6 months
@@ -83,7 +104,10 @@ function CalendarPresets (props) {
         </div>
       </button>
 
-      <button className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'>
+      <button
+        onClick={() => handlePresetSelection({startDate: startOfCurrentYear, endDate: today})}
+        className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'
+      >
         <div className='flex items-baseline'>
           <div className='text-sm font-medium'>
             This year
@@ -95,7 +119,10 @@ function CalendarPresets (props) {
         </div>
       </button>
 
-      <button className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'>
+      <button
+        onClick={() => handlePresetSelection({startDate: startOfLastYear, endDate: endOfLastYear})}
+        className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'
+      >
         <div className='flex items-baseline'>
           <div className='text-sm font-medium'>
             Last year
@@ -107,7 +134,10 @@ function CalendarPresets (props) {
         </div>
       </button>
 
-      <button className='flex w-full items-center h-10 px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'>
+      <button
+        onClick={() => handlePresetSelection({startDate: new Date(2018, 3, 16), endDate: today})}
+        className='flex w-full items-center h-10 border-b px-3 hover:bg-gray-200 text-gray-600 hover:text-indigo-500'
+      >
         <div className='flex items-baseline'>
           <div className='text-sm font-medium'>
             All time

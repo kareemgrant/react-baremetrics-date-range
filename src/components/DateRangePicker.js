@@ -75,6 +75,18 @@ function DateRangePicker (props) {
           />
         </Overlay>
       }
+
+      <div className='flex flex-col items-start mt-10 w-100'>
+        <div className='text-lg flex'>
+          <div className='w-40'>Start Date:</div>
+          <span className='ml-6 font-bold'>{format(startDate, 'MMM d, yyyy')}</span>
+        </div>
+
+        <div className='text-lg flex'>
+          <div className='w-40'>End Date:</div>
+          <span className='ml-6 font-bold'>{format(endDate, 'MMM d, yyyy')}</span>
+        </div>
+      </div>
     </div>
   )
 }
