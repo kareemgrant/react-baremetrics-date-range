@@ -83,7 +83,7 @@ function DateRangePickerBody (props) {
   }
 
   return (
-    <div className='absolute z-50 mt-2 right-0 bg-white rounded-lg overflow-hidden'>
+    <div className='absolute z-50 mt-2 right-0 bg-white rounded overflow-hidden'>
       <div className='flex rounded shadow'>
         <CalendarPresets
           handleDateRangeSelection={props.handleDateRangeSelection}
